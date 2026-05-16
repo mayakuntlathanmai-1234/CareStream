@@ -22,8 +22,11 @@ export const WebSocketProvider = ({ children }) => {
       return;
     }
 
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
-    const wsUrl = baseUrl.replace('/api', '/ws');
+    let baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+    // Derive WS URL: Replace /api with /ws, or append /ws if /api is missing
+    const wsUrl = baseUrl.includes('/api') 
+      ? baseUrl.replace('/api', '/ws') 
+      : `${baseUrl.replace(/\/$/, '')}/ws`;
 
     const stompClient = new Client({
       webSocketFactory: () => new SockJS(wsUrl),
