@@ -47,7 +47,7 @@ export default function VideoConsultation() {
       timerRef.current = setInterval(() => setCallDuration(d => d + 1), 1000);
       
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        console.error("Camera API is not available. Please ensure you are using HTTPS or localhost.");
+        console.error("Camera API is not available. Please ensure you are using HTTPS.");
         return;
       }
 

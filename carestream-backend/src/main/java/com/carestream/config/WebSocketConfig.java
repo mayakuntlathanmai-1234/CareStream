@@ -6,9 +6,15 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
+import org.springframework.beans.factory.annotation.Value;
+
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Value("${ALLOWED_ORIGINS:http://localhost:5173}")
+    private String allowedOrigins;
+
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
@@ -28,7 +34,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // The endpoint the React client will connect to: ws://localhost:8080/ws
         registry.addEndpoint("/ws")
-                .setAllowedOriginPatterns("*") // Allows React frontend to connect
-                .withSockJS(); // Fallback option for browsers that don't support WebSocket
+                .setAllowedOrigins(allowedOrigins.split(","))
+                .withSockJS();
     }
 }

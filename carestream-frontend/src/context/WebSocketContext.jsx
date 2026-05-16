@@ -22,8 +22,11 @@ export const WebSocketProvider = ({ children }) => {
       return;
     }
 
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+    const wsUrl = baseUrl.replace('/api', '/ws');
+
     const stompClient = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8080/ws'),
+      webSocketFactory: () => new SockJS(wsUrl),
       debug: (str) => console.log('STOMP: ' + str),
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
