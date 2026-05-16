@@ -1,0 +1,20 @@
+# Frontend
+carestream-frontend/node_modules/
+carestream-frontend/dist/
+carestream-frontend/.env*
+
+# Backend
+carestream-backend/target/
+carestream-backend/.mvn/
+carestream-backend/*.jar
+carestream-backend/*.war
+
+# IDEs and System
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+.vs/
+bin/
+obj/
