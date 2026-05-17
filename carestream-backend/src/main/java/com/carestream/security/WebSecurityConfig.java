@@ -93,6 +93,7 @@ public class WebSecurityConfig {
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
     List<String> origins = new ArrayList<>();
+    origins.add("https://care-stream-pink.vercel.app");
     origins.add("https://care-stream-7rurdtknd-mayakuntlathanmai-1234s-projects.vercel.app");
     origins.add("http://localhost:5173");
     if (allowedOrigins != null) {
