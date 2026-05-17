@@ -56,6 +56,7 @@ const Sidebar = () => {
         { name: 'Appointments', path: '/appointments', icon: Calendar, show: hasRole('ADMIN'), color: 'text-[#0a84ff]' },
         { name: 'Find Doctors', path: '/doctors', icon: Stethoscope, show: hasRole('ADMIN'), color: 'text-[#00e5ff]' },
         { name: 'Manage Users', path: '/admin/users', icon: Users, show: hasRole('ADMIN'), color: 'text-[#ffd60a]' },
+        { name: 'Register Doctor', path: '/admin/register-doctor', icon: UserCog, show: hasRole('ADMIN'), color: 'text-[#bf5af2]' },
         { name: 'Reports', path: '/reports', icon: BarChart2, show: hasRole('ADMIN'), color: 'text-[#30d158]' },
       ]
     },

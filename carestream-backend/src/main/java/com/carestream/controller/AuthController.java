@@ -71,6 +71,14 @@ public class AuthController {
           .body(new MessageResponse("Error: Email is already in use!"));
     }
 
+    // Security check: Block attempts to register admin or doctor roles publicly
+    java.util.Set<String> strRoles = signUpRequest.getRole();
+    if (strRoles != null && (strRoles.contains("admin") || strRoles.contains("doctor"))) {
+      return ResponseEntity
+          .badRequest()
+          .body(new MessageResponse("Error: Creating Admin or Doctor accounts is restricted to authorized administrators only!"));
+    }
+
     authService.registerUser(signUpRequest);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

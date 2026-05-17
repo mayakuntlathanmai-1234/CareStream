@@ -47,4 +47,34 @@ public class AdminController {
     public ResponseEntity<List<Appointment>> getAllAppointments() {
         return ResponseEntity.ok(appointmentRepository.findAll());
     }
+
+    @Autowired
+    private com.carestream.service.AuthService authService;
+
+    @Autowired
+    private com.carestream.repository.UserRepository userRepository;
+
+    @org.springframework.web.bind.annotation.PostMapping("/register-doctor")
+    public ResponseEntity<?> registerDoctor(@jakarta.validation.Valid @org.springframework.web.bind.annotation.RequestBody com.carestream.payload.request.SignupRequest signUpRequest) {
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new com.carestream.payload.response.MessageResponse("Error: Username is already taken!"));
+        }
+
+        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new com.carestream.payload.response.MessageResponse("Error: Email is already in use!"));
+        }
+
+        // Force role to consist solely of doctor for absolute security
+        java.util.Set<String> roles = new java.util.HashSet<>();
+        roles.add("doctor");
+        signUpRequest.setRole(roles);
+
+        authService.registerUser(signUpRequest);
+
+        return ResponseEntity.ok(new com.carestream.payload.response.MessageResponse("Doctor registered successfully!"));
+    }
 }

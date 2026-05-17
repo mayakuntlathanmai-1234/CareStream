@@ -19,6 +19,7 @@ import AiChat from './pages/AiChat';
 import PatientsList from './pages/PatientsList';
 import Reports from './pages/Reports';
 import Home from './pages/Home';
+import RegisterDoctor from './pages/RegisterDoctor';
 import { useAuth } from './context/AuthContext';
 
 const ComingSoon = ({ title, icon }) => (
@@ -59,6 +60,11 @@ function App() {
             <Route path="/admin/dashboard" element={
               <ProtectedRoute>
                 <AdminDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/register-doctor" element={
+              <ProtectedRoute role="ADMIN">
+                <RegisterDoctor />
               </ProtectedRoute>
             } />
             <Route path="/appointments" element={

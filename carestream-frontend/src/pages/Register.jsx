@@ -76,21 +76,8 @@ const Register = () => {
             </div>
             <div>
               <h2 className="text-2xl font-bold text-theme-main" style={{ fontFamily: "'Playfair Display', serif" }}>Create Account</h2>
-              <p className="text-theme-muted text-sm mt-0.5">Join CareStream today</p>
+              <p className="text-theme-muted text-sm mt-0.5">Join CareStream today as a Patient</p>
             </div>
-          </div>
-          
-          <div className="bg-black/[0.05] dark:bg-white/[0.07] backdrop-blur-md p-1 rounded-xl flex space-x-1 border border-black/[0.1] dark:border-white/[0.14]">
-            <button type="button" onClick={() => setAccountType('patient')}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${accountType === 'patient' ? 'text-[#00e5ff] border border-[#00e5ff]/20' : 'text-theme-muted hover:text-theme-main'}`}
-              style={accountType === 'patient' ? { background: 'linear-gradient(90deg, rgba(0,229,255,0.12), rgba(10,132,255,0.06))' } : {}}>
-              Patient
-            </button>
-            <button type="button" onClick={() => setAccountType('doctor')}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${accountType === 'doctor' ? 'text-[#00e5ff] border border-[#00e5ff]/20' : 'text-theme-muted hover:text-theme-main'}`}
-              style={accountType === 'doctor' ? { background: 'linear-gradient(90deg, rgba(0,229,255,0.12), rgba(10,132,255,0.06))' } : {}}>
-              Doctor
-            </button>
           </div>
         </div>
 
