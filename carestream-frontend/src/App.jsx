@@ -25,15 +25,6 @@ import Billing from './pages/Billing';
 import Settings from './pages/Settings';
 import { useAuth } from './context/AuthContext';
 
-const ComingSoon = ({ title, icon }) => (
-  <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-    <div className="text-6xl mb-4">{icon}</div>
-    <h2 className="text-2xl font-bold text-theme-main mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>{title}</h2>
-    <p className="text-theme-muted mb-6">This feature is coming soon. We're working hard to bring it to you!</p>
-    <div className="px-5 py-2 bg-[#00e5ff]/10 border border-[#00e5ff]/20 rounded-full text-[#00e5ff] text-sm font-medium">🚧 Under Construction</div>
-  </div>
-);
-
 const DashboardRedirect = () => {
   const { hasRole } = useAuth();
   if (hasRole('ADMIN')) return <Navigate to="/admin/dashboard" />;
