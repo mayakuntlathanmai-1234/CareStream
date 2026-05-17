@@ -20,6 +20,9 @@ import PatientsList from './pages/PatientsList';
 import Reports from './pages/Reports';
 import Home from './pages/Home';
 import RegisterDoctor from './pages/RegisterDoctor';
+import Prescriptions from './pages/Prescriptions';
+import Billing from './pages/Billing';
+import Settings from './pages/Settings';
 import { useAuth } from './context/AuthContext';
 
 const ComingSoon = ({ title, icon }) => (
@@ -91,12 +94,11 @@ function App() {
             <Route path="/patients" element={<ProtectedRoute><PatientsList /></ProtectedRoute>} />
             <Route path="/video" element={<ProtectedRoute><VideoConsultation /></ProtectedRoute>} />
             <Route path="/ai-chat" element={<ProtectedRoute><AiChat /></ProtectedRoute>} />
-            {/* Placeholder routes */}
-            <Route path="/prescriptions" element={<ProtectedRoute><ComingSoon title="Prescriptions" icon="💊" /></ProtectedRoute>} />
-            <Route path="/billing" element={<ProtectedRoute><ComingSoon title="Billing" icon="💳" /></ProtectedRoute>} />
-            <Route path="/patients" element={<ProtectedRoute><ComingSoon title="My Patients" icon="🩺" /></ProtectedRoute>} />
+            {/* New real routes replacing placeholders */}
+            <Route path="/prescriptions" element={<ProtectedRoute><Prescriptions /></ProtectedRoute>} />
+            <Route path="/billing" element={<ProtectedRoute><Billing /></ProtectedRoute>} />
             <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
-            <Route path="/settings" element={<ProtectedRoute><ComingSoon title="Profile Settings" icon="⚙️" /></ProtectedRoute>} />
+            <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
           </Route>
 
           <Route path="*" element={<Navigate to="/dashboard" replace />} />

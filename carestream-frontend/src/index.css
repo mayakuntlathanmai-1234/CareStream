@@ -85,13 +85,15 @@
     opacity: 0.6;
   }
   .orb-1 {
-    @apply w-[500px] h-[500px] animate-orb;
+    @apply w-[500px] h-[500px];
+    animation: floatOrb 18s ease-in-out infinite;
     background: radial-gradient(circle, rgba(0,229,255,0.15), transparent 70%);
     top: -100px;
     left: -100px;
   }
   .orb-2 {
-    @apply w-[400px] h-[400px] animate-orb-reverse;
+    @apply w-[400px] h-[400px];
+    animation: floatOrb 22s ease-in-out infinite reverse;
     background: radial-gradient(circle, rgba(191,90,242,0.12), transparent 70%);
     bottom: -80px;
     right: -80px;

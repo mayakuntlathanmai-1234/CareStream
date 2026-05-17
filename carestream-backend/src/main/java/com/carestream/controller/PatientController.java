@@ -31,6 +31,21 @@ public class PatientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PutMapping("/me")
+    public ResponseEntity<Patient> updateCurrentPatient(@RequestBody Patient updatedPatient) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
+        Patient patient = patientService.getPatientByUser(user).orElseThrow();
+        
+        patient.setName(updatedPatient.getName());
+        patient.setDateOfBirth(updatedPatient.getDateOfBirth());
+        patient.setGender(updatedPatient.getGender());
+        patient.setAddress(updatedPatient.getAddress());
+        patient.setContactNumber(updatedPatient.getContactNumber());
+        
+        return ResponseEntity.ok(patientService.savePatient(patient));
+    }
+
     @GetMapping
     public ResponseEntity<List<Patient>> getAllPatients() {
         return ResponseEntity.ok(patientService.getAllPatients());
