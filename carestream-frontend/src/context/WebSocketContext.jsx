@@ -22,7 +22,8 @@ export const WebSocketProvider = ({ children }) => {
       return;
     }
 
-    let baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+    const currentHostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
+    let baseUrl = import.meta.env.VITE_API_BASE_URL || `http://${currentHostname}:8080/api`;
     // Derive WS URL: Replace /api with /ws, or append /ws if /api is missing
     const wsUrl = baseUrl.includes('/api') 
       ? baseUrl.replace('/api', '/ws') 

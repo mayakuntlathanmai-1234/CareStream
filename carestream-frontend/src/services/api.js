@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-let baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+const currentHostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
+let baseUrl = import.meta.env.VITE_API_BASE_URL || `http://${currentHostname}:8080/api`;
 if (baseUrl && !baseUrl.endsWith('/api') && !baseUrl.includes('localhost:8080')) {
   baseUrl = `${baseUrl}/api`;
 }
