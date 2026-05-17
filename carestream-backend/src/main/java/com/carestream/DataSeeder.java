@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Optional;
 
 @Component
 public class DataSeeder implements CommandLineRunner {
@@ -39,13 +40,18 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         // Seed Admin
-        if (!userRepository.existsByUsername("admin")) {
+        Optional<User> existingAdmin = userRepository.findByUsername("admin");
+        if (existingAdmin.isEmpty()) {
             User admin = new User("admin", "admin@carestream.com", encoder.encode("admin123"));
             Set<Role> roles = new HashSet<>();
             Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                     .orElseThrow(() -> new RuntimeException("Error: Role ADMIN not found. Check database seeding."));
             roles.add(adminRole);
             admin.setRoles(roles);
+            userRepository.save(admin);
+        } else {
+            User admin = existingAdmin.get();
+            admin.setPassword(encoder.encode("admin123"));
             userRepository.save(admin);
         }
 
@@ -54,10 +60,19 @@ public class DataSeeder implements CommandLineRunner {
             createDoctor("janesmith", "Jane Smith", "Cardiology", "Mon-Wed, 9AM-2PM");
             createDoctor("robertbrown", "Robert Brown", "Neurology", "Tue-Thu, 10AM-4PM");
             createDoctor("sarahwilson", "Sarah Wilson", "Pediatrics", "Mon-Fri, 8AM-12PM");
+        } else {
+            String[] doctorUsernames = {"janesmith", "robertbrown", "sarahwilson"};
+            for (String docUsername : doctorUsernames) {
+                userRepository.findByUsername(docUsername).ifPresent(docUser -> {
+                    docUser.setPassword(encoder.encode("doctor123"));
+                    userRepository.save(docUser);
+                });
+            }
         }
         
         // Seed a sample patient
-        if (!userRepository.existsByUsername("john_doe")) {
+        Optional<User> existingPatient = userRepository.findByUsername("john_doe");
+        if (existingPatient.isEmpty()) {
             User user = new User("john_doe", "john@example.com", encoder.encode("patient123"));
             Set<Role> roles = new HashSet<>();
             Role patientRole = roleRepository.findByName(ERole.ROLE_PATIENT)
@@ -74,6 +89,10 @@ public class DataSeeder implements CommandLineRunner {
             patient.setDateOfBirth(LocalDate.of(1990, 5, 15));
             patient.setUser(savedUser);
             patientRepository.save(patient);
+        } else {
+            User user = existingPatient.get();
+            user.setPassword(encoder.encode("patient123"));
+            userRepository.save(user);
         }
     }
 
