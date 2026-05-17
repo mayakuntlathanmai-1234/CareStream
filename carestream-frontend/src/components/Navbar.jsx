@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, Menu } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
 import NotificationBell from './NotificationBell';
 
-const Navbar = () => {
+const Navbar = ({ onMenuClick }) => {
   const location = useLocation();
   
   // Format the path into a readable title
@@ -18,15 +18,25 @@ const Navbar = () => {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4 }}
-      className="flex items-center justify-between px-8 py-5 mb-6 z-20 relative"
+      className="flex items-center justify-between px-4 md:px-8 py-5 mb-6 z-20 relative"
     >
-      <div className="flex flex-col">
-        <h1 className="text-2xl font-bold text-theme-main font-display tracking-tight">
-          {title}
-        </h1>
-        <p className="text-[11px] text-theme-muted font-semibold mt-0.5 tracking-wider uppercase">
-          CareStream Medical Center
-        </p>
+      <div className="flex items-center gap-3">
+        {/* Mobile Menu Button */}
+        <button 
+          onClick={onMenuClick}
+          className="lg:hidden p-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-theme-main hover:bg-[#00e5ff]/10 hover:text-[#00e5ff] transition-all"
+        >
+          <Menu size={20} />
+        </button>
+        
+        <div className="flex flex-col">
+          <h1 className="text-2xl font-bold text-theme-main font-display tracking-tight">
+            {title}
+          </h1>
+          <p className="text-[11px] text-theme-muted font-semibold mt-0.5 tracking-wider uppercase">
+            CareStream Medical Center
+          </p>
+        </div>
       </div>
 
       <div className="flex items-center gap-4">

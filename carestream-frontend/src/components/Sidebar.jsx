@@ -3,7 +3,7 @@ import {
   LogOut, LayoutDashboard, Calendar, FileText, Users, Activity,
   Stethoscope, ChevronRight, CalendarPlus, Pill, ClipboardList,
   CreditCard, BarChart2, Settings, UserCog, HeartPulse,
-  Video, Bot
+  Video, Bot, X
 } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,7 +13,7 @@ const navItemVariants = {
   visible: (i) => ({ opacity: 1, x: 0, transition: { delay: i * 0.07, duration: 0.4, ease: 'easeOut' } }),
 };
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   const { user, logout, hasRole } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -76,14 +76,13 @@ const Sidebar = () => {
   const roleColor = roleLabel === 'ADMIN' ? 'text-[#ffd60a]' : roleLabel === 'DOCTOR' ? 'text-[#0a84ff]' : 'text-[#00e5ff]';
 
   return (
-    <motion.div
-      initial={{ x: -80, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="w-64 glass-sidebar h-screen fixed left-0 top-0 flex flex-col z-20"
+    <div
+      className={`w-64 glass-sidebar h-screen fixed left-0 top-0 flex flex-col z-35 transition-transform duration-300 lg:translate-x-0 ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}
     >
-      {/* Logo */}
-      <div className="p-5 border-b border-black/[0.09] dark:border-white/[0.09]">
+      {/* Logo & Close Button */}
+      <div className="p-5 border-b border-black/[0.09] dark:border-white/[0.09] flex items-center justify-between">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -104,6 +103,14 @@ const Sidebar = () => {
             <p className="text-[10px] text-theme-muted uppercase tracking-widest font-semibold">Medical Center</p>
           </div>
         </motion.div>
+
+        {/* Close Button on Mobile */}
+        <button 
+          onClick={onClose}
+          className="lg:hidden p-1.5 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 text-theme-muted hover:text-theme-main transition-colors"
+        >
+          <X size={18} />
+        </button>
       </div>
 
       {/* Navigation */}
@@ -121,6 +128,7 @@ const Sidebar = () => {
                   <motion.div key={link.path + link.name} custom={globalIndex} variants={navItemVariants} initial="hidden" animate="visible">
                     <Link
                       to={link.path}
+                      onClick={onClose}
                       className={`group relative flex items-center space-x-3 p-2.5 rounded-xl transition-all duration-200 ${
                         isActive
                           ? 'bg-gradient-to-r from-[#00e5ff]/12 to-[#0a84ff]/6 border border-[#00e5ff]/15'
@@ -177,7 +185,7 @@ const Sidebar = () => {
           <span>Sign Out</span>
         </motion.button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
