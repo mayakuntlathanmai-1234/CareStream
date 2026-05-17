@@ -40,7 +40,7 @@ const Register = () => {
   const selectClass = "input-glass w-full";
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden" style={{ fontFamily: "'Outfit', sans-serif" }}>
+    <div className="min-h-screen w-full flex items-center justify-center p-4 relative overflow-y-auto" style={{ fontFamily: "'Outfit', sans-serif" }}>
       
       {/* Mesh Background */}
       <div className="mesh-bg"></div>
@@ -142,9 +142,9 @@ const Register = () => {
                 <div>
                   <label className="block text-xs font-bold text-theme-muted uppercase tracking-wider mb-2">Gender</label>
                   <select name="gender" onChange={handleChange} className={selectClass}>
-                    <option value="Male" className="bg-[#0e1220]">Male</option>
-                    <option value="Female" className="bg-[#0e1220]">Female</option>
-                    <option value="Other" className="bg-[#0e1220]">Other</option>
+                    <option value="Male" className="bg-white dark:bg-[#0e1220] text-slate-800 dark:text-white">Male</option>
+                    <option value="Female" className="bg-white dark:bg-[#0e1220] text-slate-800 dark:text-white">Female</option>
+                    <option value="Other" className="bg-white dark:bg-[#0e1220] text-slate-800 dark:text-white">Other</option>
                   </select>
                 </div>
                 <div>
