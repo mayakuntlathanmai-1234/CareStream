@@ -77,7 +77,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className={`w-64 glass-sidebar h-screen fixed left-0 top-0 flex flex-col z-35 transition-transform duration-300 lg:translate-x-0 ${
+      className={`w-64 glass-sidebar h-screen fixed left-0 top-0 flex flex-col z-40 transition-transform duration-300 lg:translate-x-0 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
     >
