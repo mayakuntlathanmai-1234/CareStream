@@ -92,17 +92,11 @@ public class WebSecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    List<String> origins = new ArrayList<>();
-    origins.add("https://care-stream-pink.vercel.app");
-    origins.add("https://care-stream-7rurdtknd-mayakuntlathanmai-1234s-projects.vercel.app");
-    origins.add("http://localhost:5173");
-    if (allowedOrigins != null) {
-      origins.addAll(Arrays.asList(allowedOrigins.split(",")));
-    }
-    configuration.setAllowedOriginPatterns(origins);
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    // Allow any origin (Vercel, local, Railway, etc) to prevent CORS errors on new deployments
+    configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
     configuration.setAllowedHeaders(Arrays.asList("*"));
-    configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
+    configuration.setExposedHeaders(Arrays.asList("x-auth-token", "Authorization"));
     configuration.setAllowCredentials(true);
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
