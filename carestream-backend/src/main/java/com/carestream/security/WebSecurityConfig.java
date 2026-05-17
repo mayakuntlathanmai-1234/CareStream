@@ -22,6 +22,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
@@ -90,8 +92,14 @@ public class WebSecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOriginPatterns(Arrays.asList(allowedOrigins.split(",")));
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+    List<String> origins = new ArrayList<>();
+    origins.add("https://care-stream-7rurdtknd-mayakuntlathanmai-1234s-projects.vercel.app");
+    origins.add("http://localhost:5173");
+    if (allowedOrigins != null) {
+      origins.addAll(Arrays.asList(allowedOrigins.split(",")));
+    }
+    configuration.setAllowedOriginPatterns(origins);
+    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     configuration.setAllowedHeaders(Arrays.asList("*"));
     configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
     configuration.setAllowCredentials(true);
